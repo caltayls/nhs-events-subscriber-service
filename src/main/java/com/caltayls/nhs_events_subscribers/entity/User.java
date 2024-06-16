@@ -2,8 +2,9 @@ package com.caltayls.nhs_events_subscribers.entity;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection="users")
+@DynamoDBTable(tableName="users")
 public class User {
 
-  @Id
+  @DynamoDBHashKey
   private String email;
-
+  @DynamoDBAttribute
   private String emailFrequency;
-
+  @DynamoDBAttribute
   private List<String> location;
-  
+  @DynamoDBAttribute
   private Boolean weeklyUpdate;
 
 

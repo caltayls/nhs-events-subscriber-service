@@ -3,7 +3,9 @@ package com.caltayls.nhs_events_subscribers.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.caltayls.nhs_events_subscribers.entity.User;
@@ -19,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-  
+
   final UserRepository userRepository;
   final UserMapper userMapper;
 
@@ -36,10 +38,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<UserResponse> getAllUsers() {
-    List<UserResponse> users = userRepository.findAll()
-      .stream().map(user -> userMapper.toDto(user))
+    Iterable<User> users = userRepository.findAll();
+    List<UserResponse> userResponses = StreamSupport.
+      stream(users.spliterator(), false)
+      .map(userMapper::toDto)
       .collect(Collectors.toList());
-    return users;
+
+    return userResponses;  
   }
 
   @Override

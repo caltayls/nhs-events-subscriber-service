@@ -2,6 +2,7 @@ package com.caltayls.nhs_events_subscribers.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +49,7 @@ public class UserController {
 
   @PostMapping("/users")
   public ResponseEntity<UserResponse> addUser(@RequestBody UserRequest userRequest) {
-    return ResponseEntity.ok()
+    return ResponseEntity.status(HttpStatus.CREATED)
       .body(userService.createUser(userRequest));
   }
 

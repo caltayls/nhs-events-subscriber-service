@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
-  @ExceptionHandler(UserAlreadyExistsException.class)
+  @ExceptionHandler({ UserAlreadyExistsException.class })
   @ResponseStatus(HttpStatus.CONFLICT)
-  String UserAlreadyExistsHandler(UserAlreadyExistsException e) {
+  String userAlreadyExistsHandler(UserAlreadyExistsException e) {
     return e.getMessage();
   }
 
   @ExceptionHandler(UserDoesNotExistException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  String UserDoesNotExistHandler(UserDoesNotExistException e) {
+  String userDoesNotExistHandler(UserDoesNotExistException e) {
     return e.getMessage();
   }
   
